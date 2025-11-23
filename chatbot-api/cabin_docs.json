@@ -1,0 +1,32 @@
+[
+  {
+    "id": "qatar_general",
+    "source": "Qatar_Airways",
+    "text": "Age: minimum 21 ans, maximum 35 ans. Education: High school certificate (baccalaureat) minimum; experience en hotellerie/tourisme un plus. Mobilite: capacité a s'installer a Doha; visa requis. Criminal record: casier vierge; reseaux sociaux scrutés. Reach: minimum 212 cm (sur pointe des pieds sans chaussures). Height (female): min 162 cm max 178 cm. Height (male): min 170 cm max 190 cm. BMI: autorise 18.5-24; controles poids reguliers post-embauche. Sante: test medical complet, aptitude natation 25m. Tattoos/scars: aucun tatouage visible; cicatrices non visibles seulement. Grooming: maquillage naturel, cheveux attaches, ongles courts neutres. Languages: anglais (ICAO 4+) obligatoire; autres langues un atout. Processus: Open day (group), reach test, manners/walk/talk, 1:1 interview. Contract: salaire env 1100-1650 EUR net + primes, logement gratuit, billets discount; formation 6-8 semaines payee. Notes: preference célibataires; grossesse disqualifie."
+  },
+  {
+    "id": "singapore_general",
+    "source": "Singapore_Airlines",
+    "text": "Age: au moins 18 ans (exigence legale). Education: Minimum 5 credits GCE 'O' Level ou equivalent. Mobilite: demenagement a Singapour dans ~3 mois; permis de travail requis pour non-locaux. Criminal record: casier vierge; verification reseaux sociaux. Reach: test reach 210-212 cm. Height (female): min 158 cm max 178 cm. Height (male): min 165 cm max 190 cm. BMI: recommande <22; controles et perte de poids possible. Health: excellente sante; vision corrigeable 20/20; natation 25m. Tattoos: interdiction totale tatouages visibles en uniforme; piercings limites. Grooming: maquillage naturel, peau nette, cheveux attaches. Languages: anglais fluide obligatoire; autres langues atout. Processus: application en ligne -> video -> F2F (groupe, fitting kebaya, skin check). Contract: salaire base formation (~1380 SGD) + heures vol; bond 2 ans souvent. Notes: preference célibataires; grossesse disqualifie."
+  },
+  {
+    "id": "cathay_general",
+    "source": "Cathay_Pacific",
+    "text": "Age: au moins 18 ans. Education: 5 sujets HKCEE/HKDSE ou equivalent. Mobility: base Hong Kong ou bases overseas; visa fourni pour non-locaux. Criminal record: casier vierge; test drogue pre-embauche. Reach: minimum 208 cm. Height (female): preference 158-175 cm. Height (male): 165-185 cm. BMI: 18-22 (tolerance +5kg). Health: examen medical complet, natation 25m. Tattoos/piercings: aucun visible en uniforme; piercings limites. Grooming: look professionnel, maquillage naturel (rouge a levres optionnel), collants obligatoires avec jupe. Languages: anglais + une autre langue regionale avantage. Processus: online -> group discussion -> panel 1:1 -> medical/grooming -> formation. Contract: salaire base HKD 10k-18k + allowances; formation 6-8 semaines payee."
+  },
+  {
+    "id": "emirates_general",
+    "source": "Emirates",
+    "text": "Age: minimum 21 ans (preference <30). Education: high school minimum. Mobility: s'installer a Dubai; visa fourni. Criminal record: casier vierge; verification reseaux sociaux. Reach: minimum 212 cm. Height (female): min 160 cm max 175 cm. Height (male): min 165 cm max 185 cm. BMI: proportionnel a la taille (18-22 recommande). Health: examen medical complet, natation 25m. Tattoos: aucun visible; cicatrices cachees OK si non visibles. Grooming: maquillage naturel; hommes clean-shaven. Languages: anglais fluide obligatoire. Processus: Open day -> invite-only interviews -> medical. Contract: salaire env AED 10k-15k + logement partage gratuit; formation 6-8 semaines payee."
+  },
+  {
+    "id": "ana_general",
+    "source": "ANA",
+    "text": "Age: minimum 20 ans. Education: diplom universitaire (bachelor) ou equivalent. Mobility: s'installer au Japon; visa fourni pour non-japonais. Criminal record: casier vierge; verification. Reach: minimum 210 cm. Height (female): min 160 cm. Height (male): min 170 cm. BMI: proportionnel a la taille. Health: examen medical complet; natation 25m. Tattoos: interdiction visible; piercings retirables. Grooming: maquillage minimal, look professionnel. Languages: japonais JLPT N1/N2 recommande + anglais TOEIC 650+. Processus: online -> group/role-play -> medical -> formation 3-4 mois. Contract: salaire base + primes; probation 6 mois."
+  },
+  {
+    "id": "turkish_general",
+    "source": "Turkish_Airlines",
+    "text": "Age: generalement 18-20+ selon role. Education: au moins diploma associe bac+2 (varie). Mobility: base Istanbul; visa/eligibilite selon nationalite. Criminal record: aucun antecedent. Reach: minimum 210 cm. Height (female): 160-180 cm. Height (male): 170-190 cm. BMI: proportionnel a la taille. Health: examen medical complet; natation 25m implicite. Tattoos/piercings: aucune marques visibles autorisees. Grooming: presentation soignee, stylée. Languages: anglais excellent requis. Processus: online -> test anglais -> video -> interviews -> medical -> training. Contract: CDI apres formation/probation; formation payee."
+  }
+]

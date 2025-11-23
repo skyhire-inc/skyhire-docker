@@ -141,6 +141,26 @@ services:
     networks:
       - skyhire-network
 
+  chatbot-api:
+    build:
+      context: ./chatbot-api
+      dockerfile: Dockerfile
+    container_name: skyhire-chatbot-api
+    restart: always
+    ports:
+      - "${CHATBOT_API:-8000}:8000"
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 8000
+      PY_SERVICE_URL: http://cv-python:8000
+      OUTPUT_DIR: /app/output
+    volumes:
+      - cv_parser_input:/app/input
+      - cv_parser_output:/app/output
+      - cv_parser_logs:/app/logs
+    networks:
+      - skyhire-network
+
   # CV Parser Python Service (FastAPI)
   cv-python:
     build:
