@@ -27,7 +27,6 @@ COPY cabin_docs.json ./
 
 # Upgrade pip and install torch CPU first to satisfy easyocr
 RUN python -m pip install --no-cache-dir --upgrade pip && \
-    python -m pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu torch torchvision torchaudio && \
     python -m pip install --no-cache-dir -r requirements.txt && \
     python -m pip install --no-cache-dir fastapi uvicorn
 
