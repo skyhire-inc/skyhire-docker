@@ -1,0 +1,310 @@
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: skyhire-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: skyhire
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - skyhire-network
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: skyhire-api-gateway
+    restart: always
+    ports:
+      - "${API_GATEWAY_PORT:-5000}:5000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${API_GATEWAY_PORT:-5000}
+      CLIENT_URL: http://localhost
+      AUTH_SERVICE_URL: http://auth-service:${AUTH_SERVICE_PORT:-5001}
+      USER_SERVICE_URL: http://user-service:${USER_SERVICE_PORT:-5007}
+      JOB_SERVICE_URL: http://job-service:${JOB_SERVICE_PORT:-5005}
+      CV_SERVICE_URL: http://cv-service:${CV_SERVICE_PORT:-5003}
+      CV_PARSER_SERVICE_URL: http://cv-parser-api:3000
+      CHAT_SERVICE_URL: http://chat-service:${CHAT_SERVICE_PORT:-5002}
+      INTERVIEW_SERVICE_URL: http://interview-service:${INTERVIEW_SERVICE_PORT:-5004}
+      INTERVIEW_TOKEN_SERVICE_URL: http://interview-token-service:3000
+      NOTIFICATIONS_SERVICE_URL: http://notifications-service:${NOTIFICATIONS_SERVICE_PORT:-5006}
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      - auth-service
+      - user-service
+      - job-service
+      - cv-service
+      - cv-parser-api
+      - cv-python
+      - chat-service
+      - interview-service
+      - interview-token-service
+      - notifications-service
+    networks:
+      - skyhire-network
+
+  # Auth Service
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: skyhire-auth-service
+    restart: always
+    ports:
+      - "${AUTH_SERVICE_PORT:-5001}:5001"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${AUTH_SERVICE_PORT:-5001}
+      MONGODB_URI: mongodb://mongodb:27017/skyhire-auth
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRE: ${JWT_EXPIRE:-7d}
+    depends_on:
+      - mongodb
+    networks:
+      - skyhire-network
+
+  # Chat Service
+  chat-service:
+    build:
+      context: ./chat-service
+      dockerfile: Dockerfile
+    container_name: skyhire-chat-service
+    restart: always
+    ports:
+      - "${CHAT_SERVICE_PORT:-5002}:5002"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${CHAT_SERVICE_PORT:-5002}
+      MONGODB_URI: mongodb://mongodb:27017/skyhire-chat
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      - mongodb
+    networks:
+      - skyhire-network
+
+  # CV Service
+  cv-service:
+    build:
+      context: ./cv-service
+      dockerfile: Dockerfile
+    container_name: skyhire-cv-service
+    restart: always
+    ports:
+      - "${CV_SERVICE_PORT:-5003}:5003"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${CV_SERVICE_PORT:-5003}
+      MONGODB_URI: mongodb://mongodb:27017/skyhire-cv
+      JWT_SECRET: ${JWT_SECRET}
+    volumes:
+      - cv_uploads:/app/uploads/cv
+    depends_on:
+      - mongodb
+    networks:
+      - skyhire-network
+
+  # CV Parser API (Node.js)
+  cv-parser-api:
+    build:
+      context: ./cv_parser
+      dockerfile: api/Dockerfile
+    container_name: skyhire-cv-parser-api
+    restart: always
+    ports:
+      - "${CV_PARSER_SERVICE_PORT:-5010}:3000"
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3000
+      PY_SERVICE_URL: http://cv-python:8000
+      OUTPUT_DIR: /app/output
+    volumes:
+      - cv_parser_input:/app/input
+      - cv_parser_output:/app/output
+      - cv_parser_logs:/app/logs
+    depends_on:
+      - cv-python
+    networks:
+      - skyhire-network
+
+  # CV Parser Python Service (FastAPI)
+  cv-python:
+    build:
+      context: ./cv_parser
+      dockerfile: python-service/Dockerfile
+    container_name: skyhire-cv-python
+    expose:
+      - "8000"
+    restart: always
+    volumes:
+      - cv_parser_input:/app/input
+      - cv_parser_output:/app/output
+      - cv_parser_logs:/app/logs
+    networks:
+      - skyhire-network
+
+  # Interview Service
+  interview-service:
+    build:
+      context: ./interview-service
+      dockerfile: Dockerfile
+    container_name: skyhire-interview-service
+    restart: always
+    ports:
+      - "${INTERVIEW_SERVICE_PORT:-5004}:5004"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${INTERVIEW_SERVICE_PORT:-5004}
+      MONGODB_URI: mongodb://mongodb:27017/skyhire-interview
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      - mongodb
+    networks:
+      - skyhire-network
+
+  # Job Service
+  job-service:
+    build:
+      context: ./job-service
+      dockerfile: Dockerfile
+    container_name: skyhire-job-service
+    restart: always
+    ports:
+      - "${JOB_SERVICE_PORT:-5005}:5005"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${JOB_SERVICE_PORT:-5005}
+      MONGODB_URI: mongodb://mongodb:27017/skyhire-jobs
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      - mongodb
+    networks:
+      - skyhire-network
+
+  # Notifications Service
+  notifications-service:
+    build:
+      context: ./notifications-service
+      dockerfile: Dockerfile
+    container_name: skyhire-notifications-service
+    restart: always
+    ports:
+      - "${NOTIFICATIONS_SERVICE_PORT:-5006}:5006"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${NOTIFICATIONS_SERVICE_PORT:-5006}
+      MONGODB_URI: mongodb://mongodb:27017/skyhire-notifications
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      - mongodb
+    networks:
+      - skyhire-network
+
+  # User Service
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: skyhire-user-service
+    restart: always
+    ports:
+      - "${USER_SERVICE_PORT:-5007}:5007"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${USER_SERVICE_PORT:-5007}
+      MONGODB_URI: mongodb://mongodb:27017/skyhire-users
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      - mongodb
+    networks:
+      - skyhire-network
+
+  # Interview Token Service
+  interview-token-service:
+    build:
+      context: ./interviewToken-service
+      dockerfile: Dockerfile
+    container_name: skyhire-interview-token-service
+    restart: always
+    ports:
+      - "${INTERVIEW_TOKEN_SERVICE_PORT:-5008}:3000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3000
+      GEMINI_API_LIVE_TOKEN: ${GEMINI_API_LIVE_TOKEN}
+    networks:
+      - skyhire-network
+
+  # Interview Token Service
+  frontend-server:
+    build:
+      context: ./frontend-server
+      dockerfile: Dockerfile
+    container_name: skyhire-front
+    restart: always
+    ports:
+      - "${FRONT_SERVER_PORT:-80}:80"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 80
+      GEMINI_API_LIVE_TOKEN: ${GEMINI_API_LIVE_TOKEN}
+    networks:
+      - skyhire-network
+  live-interview-server:
+    build:
+      context: ./live-interview-server
+      dockerfile: Dockerfile
+    container_name: skyhire-interview
+    restart: always
+    ports:
+      - "${INTERVIEW_SERVER_PORT:-81}:80"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 80
+      GEMINI_API_LIVE_TOKEN: ${GEMINI_API_LIVE_TOKEN}
+    networks:
+      - skyhire-network
+
+networks:
+  skyhire-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
+  cv_uploads:
+    driver: local
+  cv_parser_input:
+    driver: local
+  cv_parser_output:
+    driver: local
+  cv_parser_logs:
+    driver: local
