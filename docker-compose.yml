@@ -150,6 +150,7 @@ services:
     ports:
       - "${CHATBOT_API:-8000}:8000"
     environment:
+      GEMINI_API_KEY: ${GEMINI_API_LIVE_TOKEN}
       NODE_ENV: ${NODE_ENV:-production}
       PORT: 8000
       PY_SERVICE_URL: http://cv-python:8000
