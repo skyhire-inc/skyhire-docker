@@ -153,12 +153,6 @@ services:
       GEMINI_API_KEY: ${GEMINI_API_LIVE_TOKEN}
       NODE_ENV: ${NODE_ENV:-production}
       PORT: 8000
-      PY_SERVICE_URL: http://cv-python:8000
-      OUTPUT_DIR: /app/output
-    volumes:
-      - cv_parser_input:/app/input
-      - cv_parser_output:/app/output
-      - cv_parser_logs:/app/logs
     networks:
       - skyhire-network
 
@@ -277,6 +271,7 @@ services:
       NODE_ENV: ${NODE_ENV:-production}
       PORT: 3000
       GEMINI_API_LIVE_TOKEN: ${GEMINI_API_LIVE_TOKEN}
+      REACT_APP_GEMINI_API_KEY: ${GEMINI_API_LIVE_TOKEN}
     networks:
       - skyhire-network
 
@@ -311,6 +306,7 @@ services:
       NODE_ENV: ${NODE_ENV:-production}
       PORT: 80
       GEMINI_API_LIVE_TOKEN: ${GEMINI_API_LIVE_TOKEN}
+      REACT_APP_GEMINI_API_KEY: ${GEMINI_API_LIVE_TOKEN}
     networks:
       - skyhire-network
 
