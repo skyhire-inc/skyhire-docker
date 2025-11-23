@@ -148,9 +148,9 @@ services:
     container_name: skyhire-chatbot-api
     restart: always
     ports:
-      - "${CHATBOT_API:-8000}:8000"
+      - "8000:8000"
     environment:
-      GEMINI_API_KEY: ${GEMINI_API_LIVE_TOKEN}
+      GEMINI_API_KEY: ${CHATBOT_TOKEN}
       NODE_ENV: ${NODE_ENV:-production}
       PORT: 8000
     networks:

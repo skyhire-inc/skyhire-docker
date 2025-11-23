@@ -7,6 +7,7 @@ import logging
 from typing import List, Optional
 import re
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 # Charge le .env
 load_dotenv()
@@ -19,6 +20,20 @@ app = FastAPI(
     title="Aeronautics Chatbot API",
     description="Chatbot spécialisé en aéronautique utilisant Gemini 2",
     version="2.0.0"
+)
+origins = [
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://localhost:5000",
+        "http://localhost:80"
+]
+
+app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,  # Allow cookies to be sent with cross-origin requests
+        allow_methods=["*"],     # Allow all standard HTTP methods (GET, POST, PUT, DELETE, etc.)
+        allow_headers=["*"],     # Allow all headers to be sent with cross-origin requests
 )
 
 # Debug: Vérification de la clé API

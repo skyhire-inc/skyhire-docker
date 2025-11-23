@@ -81,11 +81,10 @@ app.use('/api/notifications', mkProxy(targets.NOTIFICATIONS));
 app.use('/api/aero', createProxyMiddleware({
   target: targets.AERONAUTICS,
   changeOrigin: true,
-  ws: true,
   pathRewrite: { '^/api/aero': '' },
   logLevel: 'warn'
 }));
-
+//app.use('/api/aero', mkProxy(targets.AERONAUTICS));
 app.use('/uploads', mkProxy(targets.CV));
 
 const chatWsProxy = createProxyMiddleware({

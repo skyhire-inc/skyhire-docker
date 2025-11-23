@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.70055e53.css",
-    "main.js": "/static/js/main.19b2ef18.js",
+    "main.js": "/static/js/main.c1a77b6e.js",
     "static/media/skyhire-bg.png": "/static/media/skyhire-bg.771896ff755748c1e4e0.png",
     "static/media/skyhire-logo.png": "/static/media/skyhire-logo.067417c4e90d07c2ea48.png",
     "static/media/tunisia-flag.png": "/static/media/tunisia-flag.82721f7bb31ef42d94c8.png",
@@ -9,10 +9,10 @@
     "static/media/sidebar-image.jpg": "/static/media/sidebar-image.13fc0da7f755aa3d2947.jpg",
     "index.html": "/index.html",
     "main.70055e53.css.map": "/static/css/main.70055e53.css.map",
-    "main.19b2ef18.js.map": "/static/js/main.19b2ef18.js.map"
+    "main.c1a77b6e.js.map": "/static/js/main.c1a77b6e.js.map"
   },
   "entrypoints": [
     "static/css/main.70055e53.css",
-    "static/js/main.19b2ef18.js"
+    "static/js/main.c1a77b6e.js"
   ]
 }
